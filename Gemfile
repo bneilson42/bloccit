@@ -19,6 +19,11 @@ gem 'fog'
 
 gem 'will_paginate', '~> 3.0.5'
 
+group :test do
+  gem 'rspec-rails', '~> 3.1.0'
+end
+
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.10'
 
@@ -31,6 +36,7 @@ gem 'rails', '4.0.10'
  group :development do
    gem 'sqlite3'
  end
+
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.2'
