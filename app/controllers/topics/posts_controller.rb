@@ -1,7 +1,9 @@
 class Topics::PostsController < ApplicationController
   def show
     @topic = Topic.find(params[:topic_id])
+    authorize @topic
     @post = Post.find(params[:id])
+    @comments = @post.comments
   end
 
   def new
@@ -59,9 +61,10 @@ class Topics::PostsController < ApplicationController
        render :show
      end
    end
-end
+
 private
 
 def post_params
   params.require(:post).permit(:title, :body)
+  end
 end

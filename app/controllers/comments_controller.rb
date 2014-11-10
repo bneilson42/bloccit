@@ -9,18 +9,29 @@ class CommentsController < ApplicationController
     @new_comment = Comment.new
 
     authorize @comment
+
+    if @comment.save
+      flash[:notice] = "Comment was created."
+    else
+      flash[:error] = "Comment failed to save."
     end
-       def destroy
-     @topic = Topic.find(params[:topic_id])
+
+    respond_with(@comment) do |format|
+      format.html { redirect_to [@post.topic, @post] }
+    end
+  end
+
+   def destroy
      @post = @topic.posts.find(params[:post_id])
      @comment = @post.comments.find(params[:id])
-
      authorize @comment
+
      if @comment.destroy
        flash[:notice] = "Comment was removed."
      else
        flash[:error] = "Comment couldn't be deleted. Try again."
      end
+
       respond_with(@comment) do |format|
        format.html { redirect_to [@post.topic, @post] }
      end

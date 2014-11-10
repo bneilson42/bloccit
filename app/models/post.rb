@@ -1,7 +1,7 @@
 class Post < ActiveRecord::Base
   has_many :comments, dependent: :destroy
   has_many :votes, dependent: :destroy
-  mount_uploader :image
+  has_many :favorites, dependent: :destroy
   belongs_to :user
   belongs_to :topic
 
@@ -19,7 +19,7 @@ class Post < ActiveRecord::Base
      votes.where(value: 1).count
    end
 
-      def update_rank
+    def update_rank
      age = (created_at - Time.new(1970,1,1)) / (60 * 60 * 24) # 1 day in seconds
      new_rank = points + age
 

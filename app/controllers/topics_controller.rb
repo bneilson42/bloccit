@@ -20,7 +20,7 @@ class TopicsController < ApplicationController
     authorize @topic
   end
 
-     def create
+   def create
      @topic = Topic.new(params.require(:topic).permit(:name, :description, :public))
      authorize @topic
      if @topic.save
@@ -41,11 +41,12 @@ class TopicsController < ApplicationController
        render :edit
      end
    end
-      def destroy
+
+   def destroy
      @topic = Topic.find(params[:id])
      name = @topic.name
-
      authorize @topic
+
      if @topic.destroy
        flash[:notice] = "\"#{name}\" was deleted successfully."
        redirect_to topics_path
@@ -54,4 +55,10 @@ class TopicsController < ApplicationController
        render :show
      end
    end
+
+  private
+
+  def topic_params
+    params.require(:topic).permit(:name, :description, :public)
+  end
 end
